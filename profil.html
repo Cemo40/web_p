@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profil - Mucur Haber</title>
+    <link rel="stylesheet" href="css/modern-style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="logo">
+                <h1>MUCUR HABER</h1>
+                <p>Güncel ve Doğru Haberler</p>
+            </div>
+            <div class="search-bar">
+                <input type="text" placeholder="Haber ara...">
+                <button><i class="fas fa-search"></i></button>
+            </div>
+            <div class="date-weather">
+                <div class="date" id="current-date"></div>
+                <div class="weather" id="weather-info">23°C Güneşli</div>
+            </div>
+        </div>
+        <nav>
+            <div class="container">
+                <ul class="main-menu">
+                    <li><a href="index.html">Anasayfa</a></li>
+                    <li><a href="gundem.html">Gündem</a></li>
+                    <li><a href="hakkinda.html">Hakkında</a></li>
+                    <li><a href="iletisim.html">İletişim</a></li>
+                    <li class="active"><a href="profil.html">Profil</a></li>
+                </ul>
+                <div class="mobile-menu-btn">
+                    <i class="fas fa-bars"></i>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <div class="container">
+            <section class="page-header">
+                <div class="breadcrumb">
+                    <a href="index.html">Anasayfa</a> / <span>Profil</span>
+                </div>
+            </section>
+
+            <section class="profile-section">
+                <div class="profile-header">
+                    <h1>Kullanıcı Profili</h1>
+                    <p>Hesap bilgilerinizi yönetin, kaydedilen haberleri görüntüleyin ve yorumlarınızı takip edin.</p>
+                </div>
+                
+                <!-- Giriş Yapmamış Kullanıcılar İçin Form -->
+                <div class="auth-forms animate-on-scroll" id="login-form">
+                    <h2 class="profile-section-title">Giriş Yap</h2>
+                    <form>
+                        <div class="form-group">
+                            <label for="username">Kullanıcı Adı</label>
+                            <input type="text" id="username" name="username" placeholder="Kullanıcı adınızı girin" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="password">Şifre</label>
+                            <input type="password" id="password" name="password" placeholder="Şifrenizi girin" required>
+                        </div>
+                        <button type="submit" class="btn">
+                            <i class="fas fa-sign-in-alt"></i> Giriş Yap
+                        </button>
+                    </form>
+                    <div class="auth-links">
+                        <a href="#" id="register-link">Hesabınız yok mu? Kayıt olun</a>
+                    </div>
+                </div>
+                
+                <!-- Kayıt Formu -->
+                <div class="auth-forms animate-on-scroll" id="register-form" style="display: none;">
+                    <h2 class="profile-section-title">Kayıt Ol</h2>
+                    <form>
+                        <div class="form-group">
+                            <label for="reg-username">Kullanıcı Adı</label>
+                            <input type="text" id="reg-username" name="reg-username" placeholder="Kullanıcı adınızı belirleyin" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="reg-email">E-posta Adresi</label>
+                            <input type="email" id="reg-email" name="reg-email" placeholder="E-posta adresinizi girin" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="reg-password">Şifre</label>
+                            <input type="password" id="reg-password" name="reg-password" placeholder="Güçlü bir şifre oluşturun" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="reg-confirm-password">Şifre Tekrar</label>
+                            <input type="password" id="reg-confirm-password" name="reg-confirm-password" placeholder="Şifrenizi tekrar girin" required>
+                        </div>
+                        <button type="submit" class="btn">
+                            <i class="fas fa-user-plus"></i> Kayıt Ol
+                        </button>
+                    </form>
+                    <div class="auth-links">
+                        <a href="#" id="login-link">Zaten hesabınız var mı? Giriş yapın</a>
+                    </div>
+                </div>
+                
+                <!-- Giriş Yapmış Kullanıcılar İçin Profil Bilgileri -->
+                <div id="profile-info" style="display: none;">
+                    <div class="profile-content">
+                        <div class="profile-sidebar animate-on-scroll">
+                            <div class="profile-avatar">
+                                <i class="fas fa-user"></i>
+                            </div>
+                            <h3 class="text-center" id="profile-username">Kullanıcı Adı</h3>
+                            <p class="text-center" id="profile-email">kullanici@example.com</p>
+                            
+                            <div class="profile-nav">
+                                <ul>
+                                    <li><a href="#" class="active" data-tab="profile-edit"><i class="fas fa-user-edit"></i> Profil Düzenle</a></li>
+                                    <li><a href="#" data-tab="saved-news"><i class="fas fa-bookmark"></i> Kaydedilen Haberler</a></li>
+                                    <li><a href="#" data-tab="comments"><i class="fas fa-comments"></i> Yorumlarım</a></li>
+                                    <li><a href="#" data-tab="notifications"><i class="fas fa-bell"></i> Bildirimler</a></li>
+                                    <li><a href="#" data-tab="settings"><i class="fas fa-cog"></i> Ayarlar</a></li>
+                                    <li><a href="#" id="logout-btn"><i class="fas fa-sign-out-alt"></i> Çıkış Yap</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        
+                        <div class="profile-main animate-on-scroll">
+                            <!-- Profil Düzenleme Sekmesi -->
+                            <div class="tab-content active" id="profile-edit">
+                                <h2 class="profile-section-title">Profil Bilgilerini Düzenle</h2>
+                                <form id="profile-edit-form">
+                                    <div class="form-group">
+                                        <label for="edit-username">Kullanıcı Adı</label>
+                                        <input type="text" id="edit-username" name="edit-username" value="" placeholder="Kullanıcı adınız">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="edit-email">E-posta Adresi</label>
+                                        <input type="email" id="edit-email" name="edit-email" value="" placeholder="E-posta adresiniz">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="edit-name">Ad Soyad</label>
+                                        <input type="text" id="edit-name" name="edit-name" value="" placeholder="Ad ve soyadınız">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="edit-bio">Hakkımda</label>
+                                        <textarea id="edit-bio" name="edit-bio" rows="4" placeholder="Kendiniz hakkında kısa bir bilgi..."></textarea>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="edit-avatar">Profil Fotoğrafı</label>
+                                        <input type="file" id="edit-avatar" name="edit-avatar" class="file-input">
+                                    </div>
+                                    <button type="submit" class="btn">
+                                        <i class="fas fa-save"></i> Değişiklikleri Kaydet
+                                    </button>
+                                </form>
+                            </div>
+                            
+                            <!-- Kaydedilen Haberler Sekmesi -->
+                            <div class="tab-content" id="saved-news">
+                                <h2 class="profile-section-title">Kaydedilen Haberler</h2>
+                                <div class="saved-news-list">
+                                    <div class="saved-news-item animate-on-scroll">
+                                        <h3 class="saved-news-title"><a href="haber-detay.html?id=1">Mucur'da Yeni Kültür Merkezi Açıldı</a></h3>
+                                        <div class="saved-news-meta">
+                                            <span><i class="far fa-calendar-alt"></i> 12 Haziran 2023</span> | <span><i class="fas fa-tag"></i> Gündem</span>
+                                        </div>
+                                        <button class="btn btn-secondary btn-sm">
+                                            <i class="fas fa-trash-alt"></i> Kayıttan Çıkar
+                                        </button>
+                                    </div>
+                                    <div class="saved-news-item animate-on-scroll">
+                                        <h3 class="saved-news-title"><a href="haber-detay.html?id=2">Mucurspor Yeni Sezona Hazır</a></h3>
+                                        <div class="saved-news-meta">
+                                            <span><i class="far fa-calendar-alt"></i> 11 Haziran 2023</span> | <span><i class="fas fa-tag"></i> Spor</span>
+                                        </div>
+                                        <button class="btn btn-secondary btn-sm">
+                                            <i class="fas fa-trash-alt"></i> Kayıttan Çıkar
+                                        </button>
+                                    </div>
+                                    <div class="saved-news-item animate-on-scroll">
+                                        <h3 class="saved-news-title"><a href="haber-detay.html?id=3">Okullar Yaz Tatiline Giriyor</a></h3>
+                                        <div class="saved-news-meta">
+                                            <span><i class="far fa-calendar-alt"></i> 10 Haziran 2023</span> | <span><i class="fas fa-tag"></i> Eğitim</span>
+                                        </div>
+                                        <button class="btn btn-secondary btn-sm">
+                                            <i class="fas fa-trash-alt"></i> Kayıttan Çıkar
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Yorumlar Sekmesi -->
+                            <div class="tab-content" id="comments">
+                                <h2 class="profile-section-title">Yorumlarım</h2>
+                                <div class="comments-list">
+                                    <div class="comment-item animate-on-scroll">
+                                        <div class="comment-meta">
+                                            <span><i class="far fa-newspaper"></i> Haber: <a href="haber-detay.html?id=1">Mucur'da Yeni Kültür Merkezi Açıldı</a></span> | <span><i class="far fa-calendar-alt"></i> 12 Haziran 2023</span>
+                                        </div>
+                                        <div class="comment-content">
+                                            <p>Kültür merkezinin açılması ilçemiz için çok güzel bir gelişme. Umarım birçok etkinlik düzenlenir.</p>
+                                        </div>
+                                        <button class="btn btn-secondary btn-sm">
+                                            <i class="fas fa-edit"></i> Düzenle
+                                        </button>
+                                        <button class="btn btn-secondary btn-sm">
+                                            <i class="fas fa-trash-alt"></i> Sil
+                                        </button>
+                                    </div>
+                                    <div class="comment-item animate-on-scroll">
+                                        <div class="comment-meta">
+                                            <span><i class="far fa-newspaper"></i> Haber: <a href="haber-detay.html?id=2">Mucurspor Yeni Sezona Hazır</a></span> | <span><i class="far fa-calendar-alt"></i> 11 Haziran 2023</span>
+                                        </div>
+                                        <div class="comment-content">
+                                            <p>Takımımıza yeni sezonda başarılar diliyorum. Umarım bu sezon hedeflerine ulaşır.</p>
+                                        </div>
+                                        <button class="btn btn-secondary btn-sm">
+                                            <i class="fas fa-edit"></i> Düzenle
+                                        </button>
+                                        <button class="btn btn-secondary btn-sm">
+                                            <i class="fas fa-trash-alt"></i> Sil
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Bildirimler Sekmesi -->
+                            <div class="tab-content" id="notifications">
+                                <h2 class="profile-section-title">Bildirimler</h2>
+                                <div class="notifications-list">
+                                    <div class="notification-item">
+                                        <p><strong>Yorum Beğenildi</strong> - Yorumunuz "Mucur'da Yeni Kültür Merkezi Açıldı" haberinde beğenildi.</p>
+                                        <small>2 saat önce</small>
+                                    </div>
+                                    <div class="notification-item">
+                                        <p><strong>Yeni Haber</strong> - İlgilendiğiniz kategoride yeni bir haber yayınlandı: "Mucur'da Yaz Festivali Başlıyor"</p>
+                                        <small>1 gün önce</small>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Ayarlar Sekmesi -->
+                            <div class="tab-content" id="settings">
+                                <h2 class="profile-section-title">Hesap Ayarları</h2>
+                                <form id="settings-form">
+                                    <div class="form-group">
+                                        <label for="change-password">Yeni Şifre</label>
+                                        <input type="password" id="change-password" name="change-password">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="confirm-change-password">Yeni Şifre Tekrar</label>
+                                        <input type="password" id="confirm-change-password" name="confirm-change-password">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>E-posta Bildirimleri</label>
+                                        <div>
+                                            <input type="checkbox" id="notify-comments" name="notify-comments" checked>
+                                            <label for="notify-comments">Yorumlarıma gelen yanıtlar</label>
+                                        </div>
+                                        <div>
+                                            <input type="checkbox" id="notify-news" name="notify-news" checked>
+                                            <label for="notify-news">Yeni haberler</label>
+                                        </div>
+                                    </div>
+                                    <button type="submit" class="btn">Ayarları Kaydet</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <h2>MUCUR HABER</h2>
+                    <p>Güncel ve Doğru Haberler</p>
+                </div>
+                <div class="footer-links">
+                    <h3>Hızlı Erişim</h3>
+                    <ul>
+                        <li><a href="index.html">Anasayfa</a></li>
+                        <li><a href="gundem.html">Gündem</a></li>
+                        <li><a href="hakkinda.html">Hakkında</a></li>
+                        <li><a href="iletisim.html">İletişim</a></li>
+                    </ul>
+                </div>
+                <div class="footer-categories">
+                    <h3>Kategoriler</h3>
+                    <ul>
+                        <li><a href="#">Siyaset</a></li>
+                        <li><a href="#">Ekonomi</a></li>
+                        <li><a href="#">Spor</a></li>
+                        <li><a href="#">Eğitim</a></li>
+                    </ul>
+                </div>
+                <div class="footer-social">
+                    <h3>Bizi Takip Edin</h3>
+                    <div class="social-icons">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2023 Mucur Haber. Tüm hakları saklıdır.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/script.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Sekme değiştirme işlevselliği
+            const tabLinks = document.querySelectorAll('.profile-nav a[data-tab]');
+            const tabContents = document.querySelectorAll('.tab-content');
+            
+            if (tabLinks.length > 0) {
+                tabLinks.forEach(link => {
+                    link.addEventListener('click', function(e) {
+                        e.preventDefault();
+                        
+                        // Aktif sekme bağlantısını güncelle
+                        tabLinks.forEach(l => l.classList.remove('active'));
+                        this.classList.add('active');
+                        
+                        // Aktif içeriği göster
+                        const tabId = this.getAttribute('data-tab');
+                        tabContents.forEach(content => {
+                            content.classList.remove('active');
+                            if (content.id === tabId) {
+                                content.classList.add('active');
+                            }
+                        });
+                    });
+                });
+            }
+            
+            // Profil düzenleme formunu doldur
+            const editUsernameInput = document.getElementById('edit-username');
+            const editEmailInput = document.getElementById('edit-email');
+            
+            if (editUsernameInput && editEmailInput) {
+                const username = localStorage.getItem('username');
+                const userEmail = localStorage.getItem('userEmail');
+                
+                if (username) editUsernameInput.value = username;
+                if (userEmail) editEmailInput.value = userEmail;
+            }
+            
+            // Profil düzenleme formu gönderimi
+            const profileEditForm = document.getElementById('profile-edit-form');
+            
+            if (profileEditForm) {
+                profileEditForm.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    
+                    const username = document.getElementById('edit-username').value.trim();
+                    const email = document.getElementById('edit-email').value.trim();
+                    
+                    if (username && email) {
+                        // Kullanıcı bilgilerini güncelle
+                        localStorage.setItem('username', username);
+                        localStorage.setItem('userEmail', email);
+                        
+                        // Profil bilgilerini güncelle
+                        const usernameElement = document.getElementById('profile-username');
+                        const emailElement = document.getElementById('profile-email');
+                        
+                        if (usernameElement) usernameElement.textContent = username;
+                        if (emailElement) emailElement.textContent = email;
+                        
+                        alert('Profil bilgileriniz başarıyla güncellendi.');
+                    } else {
+                        alert('Lütfen tüm zorunlu alanları doldurun.');
+                    }
+                });
+            }
+            
+            // Çıkış yapma işlevselliği
+            const logoutBtn = document.getElementById('logout-btn');
+            
+            if (logoutBtn) {
+                logoutBtn.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    // Kullanıcı oturumunu sonlandır
+                    localStorage.removeItem('isLoggedIn');
+                    localStorage.removeItem('username');
+                    localStorage.removeItem('userEmail');
+                    
+                    // Sayfayı yenile
+                    window.location.reload();
+                });
+            }
+        });
+    </script>
+    <script src="js/modern-script.js"></script>
+</body>
+</html>

@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gündem - Mucur Haber</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="logo">
+                <h1>MUCUR HABER</h1>
+                <p>Güncel ve Doğru Haberler</p>
+            </div>
+            <div class="search-bar">
+                <input type="text" placeholder="Haber ara...">
+                <button><i class="fas fa-search"></i></button>
+            </div>
+            <div class="date-weather">
+                <div class="date" id="current-date"></div>
+                <div class="weather" id="weather-info">23°C Güneşli</div>
+            </div>
+        </div>
+        <nav>
+            <div class="container">
+                <ul class="main-menu">
+                    <li><a href="index.html">Anasayfa</a></li>
+                    <li class="active"><a href="gundem.html">Gündem</a></li>
+                    <li><a href="hakkinda.html">Hakkında</a></li>
+                    <li><a href="iletisim.html">İletişim</a></li>
+                    <li><a href="profil.html">Profil</a></li>
+                </ul>
+                <div class="mobile-menu-btn">
+                    <i class="fas fa-bars"></i>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <div class="container">
+            <section class="page-header">
+                <h1>Gündem</h1>
+                <div class="breadcrumb">
+                    <a href="index.html">Anasayfa</a> / <span>Gündem</span>
+                </div>
+            </section>
+
+            <section class="news-filters">
+                <div class="filter-container">
+                    <div class="filter-group">
+                        <label>Kategoriler:</label>
+                        <select id="category-filter">
+                            <option value="all">Tümü</option>
+                            <option value="Gündem">Gündem</option>
+                            <option value="Spor">Spor</option>
+                            <option value="Ekonomi">Ekonomi</option>
+                            <option value="Sağlık">Sağlık</option>
+                            <option value="Eğitim">Eğitim</option>
+                            <option value="Kültür">Kültür</option>
+                            <option value="Teknoloji">Teknoloji</option>
+                        </select>
+                    </div>
+                    <div class="filter-group">
+                        <label>Sırala:</label>
+                        <select id="sort-filter">
+                            <option value="newest">En Yeni</option>
+                            <option value="oldest">En Eski</option>
+                        </select>
+                    </div>
+                </div>
+            </section>
+
+            <section class="all-news">
+                <div class="news-grid" id="news-container">
+                    <!-- Haberler JavaScript ile yüklenecek -->
+                </div>
+                <div class="pagination">
+                    <button id="load-more">Daha Fazla Göster</button>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <h2>MUCUR HABER</h2>
+                    <p>Güncel ve Doğru Haberler</p>
+                </div>
+                <div class="footer-links">
+                    <h3>Hızlı Erişim</h3>
+                    <ul>
+                        <li><a href="index.html">Anasayfa</a></li>
+                        <li><a href="gundem.html">Gündem</a></li>
+                        <li><a href="hakkinda.html">Hakkında</a></li>
+                        <li><a href="iletisim.html">İletişim</a></li>
+                    </ul>
+                </div>
+                <div class="footer-categories">
+                    <h3>Kategoriler</h3>
+                    <ul>
+                        <li><a href="#">Siyaset</a></li>
+                        <li><a href="#">Ekonomi</a></li>
+                        <li><a href="#">Spor</a></li>
+                        <li><a href="#">Eğitim</a></li>
+                    </ul>
+                </div>
+                <div class="footer-social">
+                    <h3>Bizi Takip Edin</h3>
+                    <div class="social-icons">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2023 Mucur Haber. Tüm hakları saklıdır.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/script.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Tüm haberleri yükle
+            loadAllNews();
+            
+            // Filtre değişikliklerini dinle
+            document.getElementById('category-filter').addEventListener('change', filterNews);
+            document.getElementById('sort-filter').addEventListener('change', filterNews);
+            
+            // Daha fazla göster düğmesi
+            document.getElementById('load-more').addEventListener('click', loadMoreNews);
+        });
+        
+        // Gösterilen haber sayısı
+        let displayedNewsCount = 0;
+        const newsPerPage = 6;
+        let filteredNews = [];
+        
+        // Tüm haberleri yükle
+        function loadAllNews() {
+            // Gerçek uygulamada API'den veri çekilir
+            filteredNews = getAllNews();
+            displayNews();
+        }
+        
+        // Haberleri filtrele
+        function filterNews() {
+            const categoryFilter = document.getElementById('category-filter').value;
+            const sortFilter = document.getElementById('sort-filter').value;
+            
+            // Tüm haberleri al
+            let news = getAllNews();
+            
+            // Kategori filtresi uygula
+            if (categoryFilter !== 'all') {
+                news = news.filter(item => item.category === categoryFilter);
+            }
+            
+            // Sıralama filtresi uygula
+            if (sortFilter === 'newest') {
+                // Tarihe göre sırala (en yeni en üstte)
+                news.sort((a, b) => new Date(b.dateObj) - new Date(a.dateObj));
+            } else {
+                // Tarihe göre sırala (en eski en üstte)
+                news.sort((a, b) => new Date(a.dateObj) - new Date(b.dateObj));
+            }
+            
+            // Filtrelenmiş haberleri güncelle
+            filteredNews = news;
+            
+            // Gösterilen haber sayısını sıfırla
+            displayedNewsCount = 0;
+            
+            // Haberleri göster
+            displayNews();
+        }
+        
+        // Haberleri göster
+        function displayNews() {
+            const newsContainer = document.getElementById('news-container');
+            
+            // İlk yükleme ise içeriği temizle
+            if (displayedNewsCount === 0) {
+                newsContainer.innerHTML = '';
+            }
+            
+            // Gösterilecek haberleri belirle
+            const newsToShow = filteredNews.slice(displayedNewsCount, displayedNewsCount + newsPerPage);
+            displayedNewsCount += newsToShow.length;
+            
+            // Haberleri ekle
+            newsToShow.forEach(news => {
+                const newsCard = document.createElement('article');
+                newsCard.className = 'news-card';
+                newsCard.innerHTML = `
+                    <div class="news-img">
+                        <img src="${news.image}" alt="${news.title}">
+                    </div>
+                    <div class="news-content">
+                        <span class="category">${news.category}</span>
+                        <h3><a href="haber-detay.html?id=${news.id}">${news.title}</a></h3>
+                        <p class="summary">${news.summary || ''}</p>
+                        <div class="news-meta">
+                            <span class="date">${news.date}</span>
+                            ${news.comments ? `<span class="comments"><i class="fas fa-comment"></i> ${news.comments}</span>` : ''}
+                            ${news.views ? `<span class="views"><i class="fas fa-eye"></i> ${news.views}</span>` : ''}
+                        </div>
+                    </div>
+                `;
+                newsContainer.appendChild(newsCard);
+            });
+            
+            // Daha fazla haber var mı kontrol et
+            const loadMoreBtn = document.getElementById('load-more');
+            if (displayedNewsCount >= filteredNews.length) {
+                loadMoreBtn.style.display = 'none';
+            } else {
+                loadMoreBtn.style.display = 'block';
+            }
+            
+            // Hiç haber yoksa mesaj göster
+            if (filteredNews.length === 0) {
+                newsContainer.innerHTML = '<div class="no-news">Bu kriterlere uygun haber bulunamadı.</div>';
+                loadMoreBtn.style.display = 'none';
+            }
+        }
+        
+        // Daha fazla haber yükle
+        function loadMoreNews() {
+            displayNews();
+        }
+        
+        // Tüm haberleri getir (simüle edilmiş)
+        function getAllNews() {
+            // Gerçek uygulamada bu veriler bir API'den gelir
+            return [
+                {
+                    id: '1',
+                    title: 'Mucur\'da Yeni Kültür Merkezi Açıldı',
+                    category: 'Gündem',
+                    date: '12 Haziran 2023',
+                    dateObj: '2023-06-12',
+                    image: 'https://picsum.photos/400/300?random=1',
+                    summary: 'Mucur ilçesinde uzun süredir yapımı devam eden kültür merkezi törenle açıldı.',
+                    comments: '24',
+                    views: '1.5K'
+                },
+                {
+                    id: '2',
+                    title: 'Mucurspor Yeni Sezona Hazır',
+                    category: 'Spor',
+                    date: '11 Haziran 2023',
+                    dateObj: '2023-06-11',
+                    image: 'https://picsum.photos/400/300?random=2',
+                    summary: 'Bölgesel Amatör Lig\'de mücadele eden Mucurspor, yeni sezon hazırlıklarına başladı.',
+                    comments: '18',
+                    views: '1.2K'
+                },
+                {
+                    id: '3',
+                    title: 'Okullar Yaz Tatiline Giriyor',
+                    category: 'Eğitim',
+                    date: '10 Haziran 2023',
+                    dateObj: '2023-06-10',
+                    image: 'https://picsum.photos/400/300?random=3',
+                    summary: '2022-2023 eğitim öğretim yılı sona eriyor. Mucur\'daki tüm okullarda yarın karne dağıtım törenleri yapılacak.',
+                    comments: '15',
+                    views: '980'
+                },
+                {
+                    id: '4',
+                    title: 'Mucur\'da Yeni İş Fırsatları',
+                    category: 'Ekonomi',
+                    date: '9 Haziran 2023',
+                    dateObj: '2023-06-09',
+                    image: 'https://picsum.photos/400/300?random=4',
+                    summary: 'İlçede açılan yeni fabrika ile 200 kişiye istihdam sağlanacak.',
+                    comments: '12',
+                    views: '850'
+                },
+                {
+                    id: '5',
+                    title: 'Sağlık Ocağı Yenilendi',
+                    category: 'Sağlık',
+                    date: '8 Haziran 2023',
+                    dateObj: '2023-06-08',
+                    image: 'https://picsum.photos/400/300?random=5',
+                    summary: 'Mucur merkez sağlık ocağı, kapsamlı bir yenileme çalışmasının ardından modern bir görünüme kavuştu.',
+                    comments: '8',
+                    views: '720'
+                },
+                {
+                    id: '6',
+                    title: 'Geleneksel Festival Başlıyor',
+                    category: 'Kültür',
+                    date: '7 Haziran 2023',
+                    dateObj: '2023-06-07',
+                    image: 'https://picsum.photos/400/300?random=6',
+                    summary: 'Bu yıl 15.si düzenlenecek olan festival için hazırlıklar tamamlandı.',
+                    comments: '10',
+                    views: '650'
+                },
+                {
+                    id: '7',
+                    title: 'İlçeye Ücretsiz Wi-Fi',
+                    category: 'Teknoloji',
+                    date: '6 Haziran 2023',
+                    dateObj: '2023-06-06',
+                    image: 'https://picsum.photos/400/300?random=7',
+                    summary: 'Belediye meydanında ücretsiz internet hizmeti başladı.',
+                    comments: '14',
+                    views: '920'
+                },
+                {
+                    id: '8',
+                    title: 'Mucur Belediyesi\'nden Çevre Temizliği',
+                    category: 'Gündem',
+                    date: '5 Haziran 2023',
+                    dateObj: '2023-06-05',
+                    image: 'https://picsum.photos/400/300?random=8',
+                    summary: 'Dünya Çevre Günü kapsamında ilçe genelinde temizlik kampanyası düzenlendi.',
+                    comments: '6',
+                    views: '480'
+                },
+                {
+                    id: '9',
+                    title: 'Yerel Sanatçılardan Konser',
+                    category: 'Kültür',
+                    date: '4 Haziran 2023',
+                    dateObj: '2023-06-04',
+                    image: 'https://picsum.photos/400/300?random=9',
+                    summary: 'Mucurlu sanatçılar, ilçe meydanında ücretsiz bir konser verdi.',
+                    comments: '9',
+                    views: '750'
+                },
+                {
+                    id: '10',
+                    title: 'Çiftçilere Destek Ödemeleri Başladı',
+                    category: 'Ekonomi',
+                    date: '3 Haziran 2023',
+                    dateObj: '2023-06-03',
+                    image: 'https://picsum.photos/400/300?random=10',
+                    summary: 'Tarım ve Orman Bakanlığı tarafından çiftçilere yapılacak destek ödemeleri başladı.',
+                    comments: '11',
+                    views: '820'
+                },
+                {
+                    id: '11',
+                    title: 'Mucur\'da Trafik Düzenlemesi',
+                    category: 'Gündem',
+                    date: '2 Haziran 2023',
+                    dateObj: '2023-06-02',
+                    image: 'https://picsum.photos/400/300?random=11',
+                    summary: 'İlçe merkezindeki ana caddelerde yeni trafik düzenlemesi yapıldı.',
+                    comments: '7',
+                    views: '590'
+                },
+                {
+                    id: '12',
+                    title: 'Amatör Spor Kulüplerine Destek',
+                    category: 'Spor',
+                    date: '1 Haziran 2023',
+                    dateObj: '2023-06-01',
+                    image: 'https://picsum.photos/400/300?random=12',
+                    summary: 'Belediye, ilçedeki amatör spor kulüplerine malzeme desteğinde bulundu.',
+                    comments: '5',
+                    views: '430'
+                }
+            ];
+        }
+    </script>
+</body>
+</html>

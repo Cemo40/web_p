@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hakkında - Mucur Haber</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Hakkında Sayfası Özel Stilleri */
+        .about-section {
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+            margin-bottom: 30px;
+        }
+        
+        .about-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .about-header h1 {
+            font-size: 32px;
+            color: #1d3557;
+            margin-bottom: 15px;
+        }
+        
+        .about-header p {
+            color: #666;
+            font-size: 18px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+        
+        .about-image {
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        
+        .about-image img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+        
+        .about-text {
+            line-height: 1.8;
+        }
+        
+        .about-text h2 {
+            font-size: 24px;
+            color: #1d3557;
+            margin-bottom: 15px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+        
+        .about-text h2::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 50px;
+            height: 2px;
+            background-color: #e63946;
+        }
+        
+        .about-text p {
+            margin-bottom: 15px;
+            color: #333;
+        }
+        
+        .mission-vision {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+        
+        .mission, .vision {
+            background-color: #f8f9fa;
+            border-radius: 8px;
+            padding: 25px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        }
+        
+        .mission h3, .vision h3 {
+            font-size: 22px;
+            color: #1d3557;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .mission h3 i, .vision h3 i {
+            margin-right: 10px;
+            color: #e63946;
+        }
+        
+        .team-section {
+            margin-bottom: 40px;
+        }
+        
+        .team-section h2 {
+            font-size: 28px;
+            color: #1d3557;
+            margin-bottom: 20px;
+            text-align: center;
+            position: relative;
+            padding-bottom: 10px;
+        }
+        
+        .team-section h2::after {
+            content: '';
+            position: absolute;
+            left: 50%;
+            bottom: 0;
+            width: 100px;
+            height: 2px;
+            background-color: #e63946;
+            transform: translateX(-50%);
+        }
+        
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 30px;
+        }
+        
+        .team-member {
+            background-color: #fff;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .team-member:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        .team-member-image {
+            height: 250px;
+            overflow: hidden;
+        }
+        
+        .team-member-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        
+        .team-member:hover .team-member-image img {
+            transform: scale(1.05);
+        }
+        
+        .team-member-info {
+            padding: 20px;
+            text-align: center;
+        }
+        
+        .team-member-name {
+            font-size: 20px;
+            font-weight: 600;
+            color: #1d3557;
+            margin-bottom: 5px;
+        }
+        
+        .team-member-role {
+            color: #e63946;
+            font-size: 16px;
+            margin-bottom: 15px;
+        }
+        
+        .team-member-bio {
+            color: #666;
+            font-size: 14px;
+            margin-bottom: 15px;
+        }
+        
+        .team-member-social {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+        }
+        
+        .team-member-social a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 36px;
+            height: 36px;
+            background-color: #f0f0f0;
+            border-radius: 50%;
+            color: #333;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+        
+        .team-member-social a:hover {
+            background-color: #e63946;
+            color: white;
+        }
+        
+        .stats-section {
+            margin-bottom: 40px;
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+        }
+        
+        .stat-item {
+            background-color: #1d3557;
+            color: white;
+            border-radius: 8px;
+            padding: 25px 20px;
+            text-align: center;
+        }
+        
+        .stat-number {
+            font-size: 36px;
+            font-weight: 700;
+            margin-bottom: 10px;
+            color: #e63946;
+        }
+        
+        .stat-label {
+            font-size: 16px;
+        }
+        
+        @media (max-width: 992px) {
+            .about-content {
+                grid-template-columns: 1fr;
+            }
+            
+            .mission-vision {
+                grid-template-columns: 1fr;
+            }
+            
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .about-header h1 {
+                font-size: 28px;
+            }
+            
+            .about-header p {
+                font-size: 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="logo">
+                <h1>MUCUR HABER</h1>
+                <p>Güncel ve Doğru Haberler</p>
+            </div>
+            <div class="search-bar">
+                <input type="text" placeholder="Haber ara...">
+                <button><i class="fas fa-search"></i></button>
+            </div>
+            <div class="date-weather">
+                <div class="date" id="current-date"></div>
+                <div class="weather" id="weather-info">23°C Güneşli</div>
+            </div>
+        </div>
+        <nav>
+            <div class="container">
+                <ul class="main-menu">
+                    <li><a href="index.html">Anasayfa</a></li>
+                    <li><a href="gundem.html">Gündem</a></li>
+                    <li class="active"><a href="hakkinda.html">Hakkında</a></li>
+                    <li><a href="iletisim.html">İletişim</a></li>
+                    <li><a href="profil.html">Profil</a></li>
+                </ul>
+                <div class="mobile-menu-btn">
+                    <i class="fas fa-bars"></i>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <div class="container">
+            <section class="page-header">
+                <div class="breadcrumb">
+                    <a href="index.html">Anasayfa</a> / <span>Hakkında</span>
+                </div>
+            </section>
+
+            <section class="about-section">
+                <div class="about-header">
+                    <h1>Mucur Haber Hakkında</h1>
+                    <p>Mucur ve çevresindeki gelişmeleri tarafsız ve doğru bir şekilde aktarmak için çalışıyoruz.</p>
+                </div>
+                
+                <div class="about-content">
+                    <div class="about-image">
+                        <img src="https://picsum.photos/600/400" alt="Mucur Haber Ofisi">
+                    </div>
+                    <div class="about-text">
+                        <h2>Biz Kimiz?</h2>
+                        <p>Mucur Haber, 2010 yılında kurulmuş, Mucur ilçesi ve çevresindeki gelişmeleri takip eden yerel bir haber portalıdır. Kurulduğumuz günden bu yana ilçemizdeki tüm gelişmeleri tarafsız ve doğru bir şekilde okuyucularımıza aktarmayı hedefledik.</p>
+                        <p>Deneyimli ekibimiz ile Mucur'un sesi olmaya, ilçemizin sorunlarını gündeme taşımaya ve çözüm önerileri sunmaya devam ediyoruz. Yerel haberciliğin öneminin farkında olarak, ilçemizin gelişimine katkı sağlamayı amaçlıyoruz.</p>
+                        <p>Mucur Haber olarak, teknolojinin tüm imkanlarını kullanarak okuyucularımıza en güncel haberleri en hızlı şekilde ulaştırmak için çalışıyoruz. Sosyal medya platformlarında da aktif olarak yer alarak, haberlerin daha geniş kitlelere ulaşmasını sağlıyoruz.</p>
+                    </div>
+                </div>
+                
+                <div class="mission-vision">
+                    <div class="mission">
+                        <h3><i class="fas fa-bullseye"></i> Misyonumuz</h3>
+                        <p>Mucur ve çevresindeki gelişmeleri tarafsız, doğru ve hızlı bir şekilde okuyucularımıza aktarmak, ilçemizin sorunlarını gündeme taşıyarak çözüm sürecine katkıda bulunmak ve yerel değerlerimizi koruyarak gelecek nesillere aktarmaktır.</p>
+                    </div>
+                    <div class="vision">
+                        <h3><i class="fas fa-eye"></i> Vizyonumuz</h3>
+                        <p>Yerel habercilikte öncü, güvenilir ve tarafsız kimliğimizle sadece Mucur'da değil, bölgemizde de en çok takip edilen haber kaynağı olmak, dijital platformlarda yenilikçi uygulamalarla okuyucularımıza en iyi haber deneyimini sunmaktır.</p>
+                    </div>
+                </div>
+                
+                <div class="stats-section">
+                    <div class="stats-grid">
+                        <div class="stat-item">
+                            <div class="stat-number">13</div>
+                            <div class="stat-label">Yıllık Deneyim</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number">15K+</div>
+                            <div class="stat-label">Günlük Okuyucu</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number">5K+</div>
+                            <div class="stat-label">Haber Arşivi</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number">12</div>
+                            <div class="stat-label">Ekip Üyesi</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="team-section">
+                    <h2>Ekibimiz</h2>
+                    <div class="team-grid">
+                        <div class="team-member">
+                            <div class="team-member-image">
+                                <img src="https://picsum.photos/400/400?random=1" alt="Ahmet Yılmaz">
+                            </div>
+                            <div class="team-member-info">
+                                <div class="team-member-name">Ahmet Yılmaz</div>
+                                <div class="team-member-role">Genel Yayın Yönetmeni</div>
+                                <div class="team-member-bio">20 yıllık gazetecilik deneyimiyle Mucur Haber'in kurucusu ve yöneticisidir.</div>
+                                <div class="team-member-social">
+                                    <a href="#"><i class="fab fa-twitter"></i></a>
+                                    <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                                    <a href="#"><i class="fas fa-envelope"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="team-member">
+                            <div class="team-member-image">
+                                <img src="https://picsum.photos/400/400?random=2" alt="Ayşe Kaya">
+                            </div>
+                            <div class="team-member-info">
+                                <div class="team-member-name">Ayşe Kaya</div>
+                                <div class="team-member-role">Editör</div>
+                                <div class="team-member-bio">Deneyimli gazeteci ve editör olarak 8 yıldır ekibimizde yer almaktadır.</div>
+                                <div class="team-member-social">
+                                    <a href="#"><i class="fab fa-twitter"></i></a>
+                                    <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                                    <a href="#"><i class="fas fa-envelope"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="team-member">
+                            <div class="team-member-image">
+                                <img src="https://picsum.photos/400/400?random=3" alt="Mehmet Demir">
+                            </div>
+                            <div class="team-member-info">
+                                <div class="team-member-name">Mehmet Demir</div>
+                                <div class="team-member-role">Spor Editörü</div>
+                                <div class="team-member-bio">Spor haberleri konusunda uzmanlaşmış, 10 yıllık deneyime sahip gazeteci.</div>
+                                <div class="team-member-social">
+                                    <a href="#"><i class="fab fa-twitter"></i></a>
+                                    <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                                    <a href="#"><i class="fas fa-envelope"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="team-member">
+                            <div class="team-member-image">
+                                <img src="https://picsum.photos/400/400?random=4" alt="Zeynep Yıldız">
+                            </div>
+                            <div class="team-member-info">
+                                <div class="team-member-name">Zeynep Yıldız</div>
+                                <div class="team-member-role">Kültür-Sanat Editörü</div>
+                                <div class="team-member-bio">Kültür ve sanat alanında uzmanlaşmış, 5 yıldır ekibimizde yer almaktadır.</div>
+                                <div class="team-member-social">
+                                    <a href="#"><i class="fab fa-twitter"></i></a>
+                                    <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                                    <a href="#"><i class="fas fa-envelope"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <h2>MUCUR HABER</h2>
+                    <p>Güncel ve Doğru Haberler</p>
+                </div>
+                <div class="footer-links">
+                    <h3>Hızlı Erişim</h3>
+                    <ul>
+                        <li><a href="index.html">Anasayfa</a></li>
+                        <li><a href="gundem.html">Gündem</a></li>
+                        <li><a href="hakkinda.html">Hakkında</a></li>
+                        <li><a href="iletisim.html">İletişim</a></li>
+                    </ul>
+                </div>
+                <div class="footer-categories">
+                    <h3>Kategoriler</h3>
+                    <ul>
+                        <li><a href="#">Siyaset</a></li>
+                        <li><a href="#">Ekonomi</a></li>
+                        <li><a href="#">Spor</a></li>
+                        <li><a href="#">Eğitim</a></li>
+                    </ul>
+                </div>
+                <div class="footer-social">
+                    <h3>Bizi Takip Edin</h3>
+                    <div class="social-icons">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2023 Mucur Haber. Tüm hakları saklıdır.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/script.js"></script>
+</body>
+</html>

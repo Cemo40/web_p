@@ -1,0 +1,621 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Haber Detay - Mucur Haber</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Haber Detay Sayfası Özel Stilleri */
+        .news-detail-container {
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .news-detail-header {
+            margin-bottom: 20px;
+        }
+        
+        .news-detail-title {
+            font-size: 32px;
+            margin-bottom: 15px;
+            color: #1d3557;
+        }
+        
+        .news-detail-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            color: #666;
+            font-size: 14px;
+        }
+        
+        .news-detail-meta .left {
+            display: flex;
+            align-items: center;
+        }
+        
+        .news-detail-category {
+            display: inline-block;
+            background-color: #e63946;
+            color: white;
+            padding: 4px 10px;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: 600;
+            margin-right: 15px;
+        }
+        
+        .news-detail-date {
+            display: flex;
+            align-items: center;
+        }
+        
+        .news-detail-date i {
+            margin-right: 5px;
+        }
+        
+        .news-detail-meta .right {
+            display: flex;
+            gap: 15px;
+        }
+        
+        .news-detail-meta .right span {
+            display: flex;
+            align-items: center;
+        }
+        
+        .news-detail-meta .right i {
+            margin-right: 5px;
+        }
+        
+        .news-detail-image {
+            margin-bottom: 20px;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        
+        .news-detail-image img {
+            width: 100%;
+            height: auto;
+        }
+        
+        .news-detail-content {
+            line-height: 1.8;
+            color: #333;
+            font-size: 16px;
+        }
+        
+        .news-detail-content p {
+            margin-bottom: 20px;
+        }
+        
+        .news-detail-tags {
+            margin: 30px 0;
+        }
+        
+        .news-detail-tags span {
+            display: inline-block;
+            background-color: #f0f0f0;
+            padding: 5px 10px;
+            border-radius: 4px;
+            margin-right: 10px;
+            margin-bottom: 10px;
+            font-size: 14px;
+            color: #666;
+        }
+        
+        .news-detail-share {
+            display: flex;
+            align-items: center;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .news-detail-share span {
+            margin-right: 15px;
+            font-weight: 600;
+        }
+        
+        .news-detail-share a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            margin-right: 10px;
+            color: white;
+            transition: transform 0.3s ease;
+        }
+        
+        .news-detail-share a:hover {
+            transform: translateY(-3px);
+        }
+        
+        .news-detail-share .facebook {
+            background-color: #3b5998;
+        }
+        
+        .news-detail-share .twitter {
+            background-color: #1da1f2;
+        }
+        
+        .news-detail-share .whatsapp {
+            background-color: #25d366;
+        }
+        
+        .news-detail-share .telegram {
+            background-color: #0088cc;
+        }
+        
+        .related-news {
+            margin-bottom: 30px;
+        }
+        
+        .related-news h3 {
+            font-size: 24px;
+            margin-bottom: 20px;
+            color: #1d3557;
+            border-bottom: 2px solid #e63946;
+            padding-bottom: 10px;
+        }
+        
+        .related-news-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 20px;
+        }
+        
+        .comments-section {
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+        }
+        
+        .comments-section h3 {
+            font-size: 24px;
+            margin-bottom: 20px;
+            color: #1d3557;
+            border-bottom: 2px solid #e63946;
+            padding-bottom: 10px;
+        }
+        
+        .comment-form {
+            margin-bottom: 30px;
+        }
+        
+        .comment-form textarea {
+            width: 100%;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            resize: vertical;
+            min-height: 120px;
+            margin-bottom: 15px;
+        }
+        
+        .comment-form input {
+            width: 100%;
+            padding: 10px 15px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            margin-bottom: 15px;
+        }
+        
+        .comment-form button {
+            background-color: #e63946;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: background-color 0.3s ease;
+        }
+        
+        .comment-form button:hover {
+            background-color: #c1121f;
+        }
+        
+        .comments-list {
+            margin-top: 30px;
+        }
+        
+        .comment {
+            border-bottom: 1px solid #eee;
+            padding: 20px 0;
+        }
+        
+        .comment:last-child {
+            border-bottom: none;
+        }
+        
+        .comment-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+        
+        .comment-author {
+            font-weight: 600;
+            color: #1d3557;
+        }
+        
+        .comment-date {
+            color: #888;
+            font-size: 14px;
+        }
+        
+        .comment-content {
+            line-height: 1.6;
+            color: #333;
+        }
+        
+        .comment-actions {
+            margin-top: 10px;
+            display: flex;
+            gap: 15px;
+        }
+        
+        .comment-actions button {
+            background: none;
+            border: none;
+            color: #666;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            font-size: 14px;
+        }
+        
+        .comment-actions button i {
+            margin-right: 5px;
+        }
+        
+        .comment-actions button:hover {
+            color: #e63946;
+        }
+        
+        .news-not-found {
+            text-align: center;
+            padding: 50px 0;
+        }
+        
+        .news-not-found h2 {
+            font-size: 28px;
+            margin-bottom: 20px;
+            color: #1d3557;
+        }
+        
+        .news-not-found p {
+            margin-bottom: 30px;
+            color: #666;
+        }
+        
+        .news-not-found .btn {
+            display: inline-block;
+            background-color: #e63946;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 4px;
+            font-weight: 600;
+            transition: background-color 0.3s ease;
+        }
+        
+        .news-not-found .btn:hover {
+            background-color: #c1121f;
+        }
+        
+        @media (max-width: 768px) {
+            .news-detail-meta {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            .news-detail-meta .right {
+                margin-top: 10px;
+            }
+            
+            .news-detail-title {
+                font-size: 24px;
+            }
+            
+            .related-news-container {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="logo">
+                <h1>MUCUR HABER</h1>
+                <p>Güncel ve Doğru Haberler</p>
+            </div>
+            <div class="search-bar">
+                <input type="text" placeholder="Haber ara...">
+                <button><i class="fas fa-search"></i></button>
+            </div>
+            <div class="date-weather">
+                <div class="date" id="current-date"></div>
+                <div class="weather" id="weather-info">23°C Güneşli</div>
+            </div>
+        </div>
+        <nav>
+            <div class="container">
+                <ul class="main-menu">
+                    <li><a href="index.html">Anasayfa</a></li>
+                    <li><a href="gundem.html">Gündem</a></li>
+                    <li><a href="hakkinda.html">Hakkında</a></li>
+                    <li><a href="iletisim.html">İletişim</a></li>
+                    <li><a href="profil.html">Profil</a></li>
+                </ul>
+                <div class="mobile-menu-btn">
+                    <i class="fas fa-bars"></i>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <div class="container">
+            <section class="page-header">
+                <div class="breadcrumb">
+                    <a href="index.html">Anasayfa</a> / <a href="gundem.html">Gündem</a> / <span id="breadcrumb-title">Haber Başlığı</span>
+                </div>
+            </section>
+
+            <div class="news-detail-container">
+                <article class="news-detail">
+                    <header class="news-detail-header">
+                        <h1 class="news-detail-title">Haber başlığı burada görünecek</h1>
+                        <div class="news-detail-meta">
+                            <div class="left">
+                                <span class="news-detail-category">Kategori</span>
+                                <span class="news-detail-date"><i class="far fa-calendar-alt"></i> Tarih</span>
+                            </div>
+                            <div class="right">
+                                <span class="comments"><i class="fas fa-comment"></i> 24 Yorum</span>
+                                <span class="views"><i class="fas fa-eye"></i> 1.5K Görüntülenme</span>
+                            </div>
+                        </div>
+                    </header>
+                    
+                    <div class="news-detail-image">
+                        <img src="https://picsum.photos/800/400" alt="Haber Görseli">
+                    </div>
+                    
+                    <div class="news-detail-content">
+                        <!-- Haber içeriği JavaScript ile yüklenecek -->
+                        <p>Haber içeriği burada görünecek...</p>
+                    </div>
+                    
+                    <div class="news-detail-tags">
+                        <span>#mucur</span>
+                        <span>#kırşehir</span>
+                        <span>#gündem</span>
+                        <span>#haberler</span>
+                    </div>
+                    
+                    <div class="news-detail-share">
+                        <span>Haberi Paylaş:</span>
+                        <a href="#" class="facebook"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="twitter"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="whatsapp"><i class="fab fa-whatsapp"></i></a>
+                        <a href="#" class="telegram"><i class="fab fa-telegram-plane"></i></a>
+                    </div>
+                </article>
+            </div>
+
+            <section class="related-news">
+                <h3>Benzer Haberler</h3>
+                <div class="related-news-container">
+                    <!-- İlgili haberler JavaScript ile yüklenecek -->
+                </div>
+            </section>
+
+            <section class="comments-section">
+                <h3>Yorumlar</h3>
+                <div class="comment-form">
+                    <form id="comment-form">
+                        <textarea placeholder="Yorumunuzu yazın..." required></textarea>
+                        <input type="text" placeholder="Adınız" required>
+                        <input type="email" placeholder="E-posta adresiniz" required>
+                        <button type="submit">Yorum Yap</button>
+                    </form>
+                </div>
+                <div class="comments-list">
+                    <div class="comment">
+                        <div class="comment-header">
+                            <span class="comment-author">Ahmet Yılmaz</span>
+                            <span class="comment-date">10 Haziran 2023, 14:30</span>
+                        </div>
+                        <div class="comment-content">
+                            <p>Çok güzel bir haber olmuş. Kültür merkezinin açılması ilçemiz için büyük bir kazanım.</p>
+                        </div>
+                        <div class="comment-actions">
+                            <button class="like-btn"><i class="far fa-thumbs-up"></i> Beğen (5)</button>
+                            <button class="reply-btn"><i class="far fa-comment"></i> Yanıtla</button>
+                        </div>
+                    </div>
+                    <div class="comment">
+                        <div class="comment-header">
+                            <span class="comment-author">Ayşe Demir</span>
+                            <span class="comment-date">10 Haziran 2023, 16:45</span>
+                        </div>
+                        <div class="comment-content">
+                            <p>Ben de açılışa katıldım. Gerçekten çok güzel olmuş. İlçemize hayırlı olsun.</p>
+                        </div>
+                        <div class="comment-actions">
+                            <button class="like-btn"><i class="far fa-thumbs-up"></i> Beğen (3)</button>
+                            <button class="reply-btn"><i class="far fa-comment"></i> Yanıtla</button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <h2>MUCUR HABER</h2>
+                    <p>Güncel ve Doğru Haberler</p>
+                </div>
+                <div class="footer-links">
+                    <h3>Hızlı Erişim</h3>
+                    <ul>
+                        <li><a href="index.html">Anasayfa</a></li>
+                        <li><a href="gundem.html">Gündem</a></li>
+                        <li><a href="hakkinda.html">Hakkında</a></li>
+                        <li><a href="iletisim.html">İletişim</a></li>
+                    </ul>
+                </div>
+                <div class="footer-categories">
+                    <h3>Kategoriler</h3>
+                    <ul>
+                        <li><a href="#">Siyaset</a></li>
+                        <li><a href="#">Ekonomi</a></li>
+                        <li><a href="#">Spor</a></li>
+                        <li><a href="#">Eğitim</a></li>
+                    </ul>
+                </div>
+                <div class="footer-social">
+                    <h3>Bizi Takip Edin</h3>
+                    <div class="social-icons">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2023 Mucur Haber. Tüm hakları saklıdır.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/script.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Yorum formunu ayarla
+            setupCommentForm();
+            
+            // Yorum beğeni ve yanıtlama işlevselliği
+            setupCommentActions();
+        });
+        
+        // Yorum formu işlevselliği
+        function setupCommentForm() {
+            const commentForm = document.getElementById('comment-form');
+            
+            if (commentForm) {
+                commentForm.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    
+                    const textarea = this.querySelector('textarea');
+                    const nameInput = this.querySelector('input[type="text"]');
+                    const emailInput = this.querySelector('input[type="email"]');
+                    
+                    const comment = textarea.value.trim();
+                    const name = nameInput.value.trim();
+                    const email = emailInput.value.trim();
+                    
+                    if (comment && name && email) {
+                        // Yeni yorum ekle
+                        addNewComment(name, comment);
+                        
+                        // Formu temizle
+                        textarea.value = '';
+                        nameInput.value = '';
+                        emailInput.value = '';
+                    }
+                });
+            }
+        }
+        
+        // Yeni yorum ekleme
+        function addNewComment(author, content) {
+            const commentsList = document.querySelector('.comments-list');
+            
+            if (commentsList) {
+                // Şu anki tarihi al
+                const now = new Date();
+                const dateStr = now.toLocaleDateString('tr-TR') + ', ' + 
+                               now.getHours().toString().padStart(2, '0') + ':' + 
+                               now.getMinutes().toString().padStart(2, '0');
+                
+                // Yeni yorum HTML'i oluştur
+                const newComment = document.createElement('div');
+                newComment.className = 'comment';
+                newComment.innerHTML = `
+                    <div class="comment-header">
+                        <span class="comment-author">${author}</span>
+                        <span class="comment-date">${dateStr}</span>
+                    </div>
+                    <div class="comment-content">
+                        <p>${content}</p>
+                    </div>
+                    <div class="comment-actions">
+                        <button class="like-btn"><i class="far fa-thumbs-up"></i> Beğen (0)</button>
+                        <button class="reply-btn"><i class="far fa-comment"></i> Yanıtla</button>
+                    </div>
+                `;
+                
+                // Yorumu listenin başına ekle
+                commentsList.insertBefore(newComment, commentsList.firstChild);
+                
+                // Yorum aksiyonlarını ayarla
+                setupCommentActions();
+            }
+        }
+        
+        // Yorum beğeni ve yanıtlama işlevselliği
+        function setupCommentActions() {
+            // Beğeni düğmeleri
+            const likeButtons = document.querySelectorAll('.like-btn');
+            likeButtons.forEach(button => {
+                // Daha önce dinleyici eklenmemişse ekle
+                if (!button.hasListener) {
+                    button.addEventListener('click', function() {
+                        const likeText = this.textContent;
+                        const likeCount = parseInt(likeText.match(/\d+/)[0]) + 1;
+                        this.innerHTML = `<i class="far fa-thumbs-up"></i> Beğen (${likeCount})`;
+                    });
+                    button.hasListener = true;
+                }
+            });
+            
+            // Yanıtlama düğmeleri
+            const replyButtons = document.querySelectorAll('.reply-btn');
+            replyButtons.forEach(button => {
+                // Daha önce dinleyici eklenmemişse ekle
+                if (!button.hasListener) {
+                    button.addEventListener('click', function() {
+                        const commentForm = document.querySelector('.comment-form textarea');
+                        const authorName = this.closest('.comment').querySelector('.comment-author').textContent;
+                        
+                        if (commentForm) {
+                            commentForm.value = `@${authorName} `;
+                            commentForm.focus();
+                            // Sayfayı yorum formuna kaydır
+                            commentForm.scrollIntoView({ behavior: 'smooth' });
+                        }
+                    });
+                    button.hasListener = true;
+                }
+            });
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mucur Haber - Güncel Haberler</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="logo">
+                <h1>MUCUR HABER</h1>
+                <p>Güncel ve Doğru Haberler</p>
+            </div>
+            <div class="search-bar">
+                <input type="text" placeholder="Haber ara...">
+                <button><i class="fas fa-search"></i></button>
+            </div>
+            <div class="date-weather">
+                <div class="date" id="current-date"></div>
+                <div class="weather" id="weather-info">23°C Güneşli</div>
+            </div>
+        </div>
+        <nav>
+            <div class="container">
+                <ul class="main-menu">
+                    <li class="active"><a href="index.html">Anasayfa</a></li>
+                    <li><a href="gundem.html">Gündem</a></li>
+                    <li><a href="hakkinda.html">Hakkında</a></li>
+                    <li><a href="iletisim.html">İletişim</a></li>
+                    <li><a href="profil.html">Profil</a></li>
+                </ul>
+                <div class="mobile-menu-btn">
+                    <i class="fas fa-bars"></i>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <div class="container">
+            <section class="featured-news">
+                <div class="main-news">
+                    <article class="news-card featured">
+                        <div class="news-img">
+                            <img src="https://picsum.photos/800/500" alt="Haber Görseli">
+                        </div>
+                        <div class="news-content">
+                            <span class="category">Gündem</span>
+                            <h2><a href="haber-detay.html?id=1">Mucur'da Yeni Kültür Merkezi Açıldı</a></h2>
+                            <p class="summary">Mucur ilçesinde uzun süredir yapımı devam eden kültür merkezi törenle açıldı. Merkez, ilçe sakinlerine çeşitli kültürel etkinlikler sunacak.</p>
+                            <div class="news-meta">
+                                <span class="date">12 Haziran 2023</span>
+                                <span class="comments"><i class="fas fa-comment"></i> 24</span>
+                                <span class="views"><i class="fas fa-eye"></i> 1.5K</span>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+                <div class="side-news">
+                    <article class="news-card">
+                        <div class="news-img">
+                            <img src="https://picsum.photos/400/300" alt="Haber Görseli">
+                        </div>
+                        <div class="news-content">
+                            <span class="category">Spor</span>
+                            <h3><a href="haber-detay.html?id=2">Mucurspor Yeni Sezona Hazır</a></h3>
+                            <div class="news-meta">
+                                <span class="date">11 Haziran 2023</span>
+                            </div>
+                        </div>
+                    </article>
+                    <article class="news-card">
+                        <div class="news-img">
+                            <img src="https://picsum.photos/400/300?random=2" alt="Haber Görseli">
+                        </div>
+                        <div class="news-content">
+                            <span class="category">Eğitim</span>
+                            <h3><a href="haber-detay.html?id=3">Okullar Yaz Tatiline Giriyor</a></h3>
+                            <div class="news-meta">
+                                <span class="date">10 Haziran 2023</span>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+            </section>
+
+            <section class="latest-news">
+                <div class="section-title">
+                    <h2>Son Haberler</h2>
+                    <a href="gundem.html" class="view-all">Tümünü Gör <i class="fas fa-arrow-right"></i></a>
+                </div>
+                <div class="news-grid">
+                    <article class="news-card">
+                        <div class="news-img">
+                            <img src="https://picsum.photos/400/300?random=3" alt="Haber Görseli">
+                        </div>
+                        <div class="news-content">
+                            <span class="category">Ekonomi</span>
+                            <h3><a href="haber-detay.html?id=4">Mucur'da Yeni İş Fırsatları</a></h3>
+                            <p class="summary">İlçede açılan yeni fabrika ile 200 kişiye istihdam sağlanacak.</p>
+                            <div class="news-meta">
+                                <span class="date">9 Haziran 2023</span>
+                            </div>
+                        </div>
+                    </article>
+                    <article class="news-card">
+                        <div class="news-img">
+                            <img src="https://picsum.photos/400/300?random=4" alt="Haber Görseli">
+                        </div>
+                        <div class="news-content">
+                            <span class="category">Sağlık</span>
+                            <h3><a href="haber-detay.html?id=5">Sağlık Ocağı Yenilendi</a></h3>
+                            <p class="summary">Mucur Sağlık Ocağı modern cihazlarla donatıldı.</p>
+                            <div class="news-meta">
+                                <span class="date">8 Haziran 2023</span>
+                            </div>
+                        </div>
+                    </article>
+                    <article class="news-card">
+                        <div class="news-img">
+                            <img src="https://picsum.photos/400/300?random=5" alt="Haber Görseli">
+                        </div>
+                        <div class="news-content">
+                            <span class="category">Kültür</span>
+                            <h3><a href="haber-detay.html?id=6">Geleneksel Festival Başlıyor</a></h3>
+                            <p class="summary">Bu yıl 15.si düzenlenecek olan festival için hazırlıklar tamamlandı.</p>
+                            <div class="news-meta">
+                                <span class="date">7 Haziran 2023</span>
+                            </div>
+                        </div>
+                    </article>
+                    <article class="news-card">
+                        <div class="news-img">
+                            <img src="https://picsum.photos/400/300?random=6" alt="Haber Görseli">
+                        </div>
+                        <div class="news-content">
+                            <span class="category">Teknoloji</span>
+                            <h3><a href="haber-detay.html?id=7">İlçeye Ücretsiz Wi-Fi</a></h3>
+                            <p class="summary">Belediye meydanında ücretsiz internet hizmeti başladı.</p>
+                            <div class="news-meta">
+                                <span class="date">6 Haziran 2023</span>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+            </section>
+
+            <section class="categories">
+                <div class="section-title">
+                    <h2>Kategoriler</h2>
+                </div>
+                <div class="category-grid">
+                    <div class="category-card">
+                        <i class="fas fa-landmark"></i>
+                        <h3>Siyaset</h3>
+                        <span class="count">42 Haber</span>
+                    </div>
+                    <div class="category-card">
+                        <i class="fas fa-futbol"></i>
+                        <h3>Spor</h3>
+                        <span class="count">38 Haber</span>
+                    </div>
+                    <div class="category-card">
+                        <i class="fas fa-chart-line"></i>
+                        <h3>Ekonomi</h3>
+                        <span class="count">27 Haber</span>
+                    </div>
+                    <div class="category-card">
+                        <i class="fas fa-heartbeat"></i>
+                        <h3>Sağlık</h3>
+                        <span class="count">19 Haber</span>
+                    </div>
+                    <div class="category-card">
+                        <i class="fas fa-graduation-cap"></i>
+                        <h3>Eğitim</h3>
+                        <span class="count">31 Haber</span>
+                    </div>
+                    <div class="category-card">
+                        <i class="fas fa-theater-masks"></i>
+                        <h3>Kültür</h3>
+                        <span class="count">24 Haber</span>
+                    </div>
+                </div>
+            </section>
+
+            <section class="newsletter">
+                <div class="newsletter-content">
+                    <h3>Güncel Haberlerden Haberdar Olun</h3>
+                    <p>E-posta adresinizi bırakarak günlük haber bültenimize abone olabilirsiniz.</p>
+                    <form id="newsletter-form">
+                        <input type="email" placeholder="E-posta adresiniz" required>
+                        <button type="submit">Abone Ol</button>
+                    </form>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <h2>MUCUR HABER</h2>
+                    <p>Güncel ve Doğru Haberler</p>
+                </div>
+                <div class="footer-links">
+                    <h3>Hızlı Erişim</h3>
+                    <ul>
+                        <li><a href="index.html">Anasayfa</a></li>
+                        <li><a href="gundem.html">Gündem</a></li>
+                        <li><a href="hakkinda.html">Hakkında</a></li>
+                        <li><a href="iletisim.html">İletişim</a></li>
+                    </ul>
+                </div>
+                <div class="footer-categories">
+                    <h3>Kategoriler</h3>
+                    <ul>
+                        <li><a href="#">Siyaset</a></li>
+                        <li><a href="#">Ekonomi</a></li>
+                        <li><a href="#">Spor</a></li>
+                        <li><a href="#">Eğitim</a></li>
+                    </ul>
+                </div>
+                <div class="footer-social">
+                    <h3>Bizi Takip Edin</h3>
+                    <div class="social-icons">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2023 Mucur Haber. Tüm hakları saklıdır.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/script.js"></script>
+</body>
+</html>
